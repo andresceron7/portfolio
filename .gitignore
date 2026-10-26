@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+._*
+
+# Editores
+.vscode/
+.idea/
+
+# Por si algún día agregas variables de entorno o dependencias
+.env
+.env.*
+node_modules/
+
+# Borradores de casos de estudio (no los usa el sitio)
+projects/**/*.md
+
+# Documentos fuente (diplomas, PDFs y presentaciones de casos):
+# el sitio no los usa y no deben quedar públicos en el repo
+projects/**/*.pdf
+projects/**/*.pptx
