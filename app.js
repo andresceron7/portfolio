@@ -3590,7 +3590,7 @@ function route() {
   }
 }
 
-// Saludo del hero: rota cada 2 s entre idiomas, en loop infinito.
+// Saludo del hero: rota cada 3 s entre idiomas, en loop infinito.
 // El último es "¡Hola!" en binario (UTF-8), corto para no romper el layout.
 const GREETINGS = [
   ["es", "¡Hola!, ¿Qué hay para hacer?"],
@@ -3629,7 +3629,7 @@ function initGreeting() {
     if (reduceMotion) return show();
     el.classList.add("is-out");
     setTimeout(show, FADE_MS);
-  }, 2000);
+  }, 3000);
 }
 
 window.addEventListener("hashchange", route);

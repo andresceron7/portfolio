@@ -189,7 +189,7 @@ footer {
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: 96px 0 64px;
+  padding: 72px 0 64px;
   text-align: center;
 }
 
@@ -254,7 +254,7 @@ footer {
    reserva ese alto para que el resto del hero no salte al rotar. */
 @media (max-width: 620px) {
   .hero {
-    padding: 56px 0 48px;
+    padding: 42px 0 48px;
   }
 
   .hero .hero-eyebrow {
@@ -336,6 +336,21 @@ footer {
 }
 .btn-secondary:hover { border-color: var(--accent); }
 
+.hero-actions .btn {
+  padding: 8px 18px;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--glass-shadow) 50%, transparent),
+    inset 0 1px 0 var(--glass-outline-highlight);
+}
+
+/* Botón de contacto: azul con texto blanco */
+.btn-contact {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px var(--glass-shadow);
+}
+.btn-contact:hover { filter: brightness(1.1); }
+
 .experience-label {
   text-align: center;
   font-size: clamp(28px, 4vw, 40px);
@@ -343,7 +358,7 @@ footer {
   letter-spacing: -0.02em;
   color: var(--text-soft);
   opacity: 0.3;
-  margin: 0 0 8px;
+  margin: 0 0 20px;
 }
 
 /* ---------- Filters ---------- */
@@ -562,21 +577,44 @@ footer {
 }
 
 /* ---------- About / Contact ---------- */
-.about, .contact {
-  padding: 96px 0;
-  border-top: 1px solid var(--hairline);
-  transition: border-color 0.3s ease;
+.about {
+  padding: 67px 0;
+}
+
+.contact {
+  padding: 67px 0 96px;
 }
 
 .about .wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
+  gap: 40px 64px;
+  align-items: start;
 }
 
 @media (max-width: 760px) {
   .about .wrap { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* Pills en una sola fila, de borde a borde, con el mismo espacio entre
+   cada una; si no caben (pantallas angostas) pasan a varias filas. */
+.about .skills {
+  grid-column: 1 / -1;
+  margin-top: 0;
+  gap: 6px;
+}
+
+.about .skill-chip {
+  text-align: center;
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+/* Desde aquí caben todas en una fila: se estiran hasta el borde */
+@media (min-width: 1100px) {
+  .about .skills { flex-wrap: nowrap; }
+  .about .skill-chip { flex: 1 1 auto; }
 }
 
 .about-visual {
@@ -632,6 +670,23 @@ footer {
 }
 
 .contact { text-align: center; }
+/* Mini personaje pixel art (skater) */
+.skater {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+}
+.skater img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+}
+
+/* En el Home ya aparece sobre el contacto; el footer no lo repite */
+.footer-skater { margin-bottom: 16px; }
+body:has(#home-view:not(.hidden)) .footer-skater { display: none; }
 .contact h2 {
   font-size: clamp(28px, 4vw, 40px);
   letter-spacing: -0.02em;
@@ -649,8 +704,6 @@ footer {
   text-align: center;
   color: var(--text-soft);
   font-size: 12px;
-  border-top: 1px solid var(--hairline);
-  transition: border-color 0.3s ease;
 }
 
 /* ---------- Detail view ---------- */
@@ -2778,7 +2831,7 @@ footer {
 
 /* ---------- Home: carrusel de proyectos ---------- */
 .home-projects {
-  padding-bottom: 96px;
+  padding-bottom: 48px;
 }
 
 .carousel {
