@@ -3538,6 +3538,92 @@ function showProfile() {
   window.scrollTo(0, 0);
 }
 
+function renderPrivacy() {
+  return `
+    <article class="wrap legal">
+      <a class="back-link" href="#/">&larr; Volver al inicio</a>
+      <h1>Política de privacidad</h1>
+      <p class="legal-updated">Última actualización: 27 de octubre de 2026</p>
+
+      <h2>Quién es responsable</h2>
+      <p>
+        Este portafolio es de Andrés Cerón. Para cualquier pregunta sobre tus
+        datos puedes escribirme a
+        <a href="mailto:andres.zeron@gmail.com">andres.zeron@gmail.com</a>.
+      </p>
+
+      <h2>Qué datos se recogen</h2>
+      <p>
+        Este sitio no tiene formularios, registros ni cuentas de usuario. Si
+        aceptas las cookies analíticas, Google Analytics 4 recoge datos de uso
+        anónimos o seudónimos: páginas y proyectos que visitas, botones y
+        enlaces que usas, tiempo aproximado de visita, tipo de dispositivo y
+        navegador, sitio desde el que llegaste y ubicación aproximada (país o
+        ciudad). Google Analytics no guarda tu dirección IP completa y yo no
+        puedo identificarte con estos datos.
+      </p>
+
+      <h2>Para qué se usan</h2>
+      <p>
+        Solo para entender qué proyectos y secciones interesan más y mejorar el
+        portafolio. No uso los datos para publicidad, no los vendo y no los
+        comparto con nadie más allá de Google, que presta el servicio de
+        análisis.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        Las cookies analíticas solo se activan si las aceptas en el aviso de
+        cookies:
+      </p>
+      <ul>
+        <li><strong>_ga</strong>: distingue visitantes. Dura hasta 2 años.</li>
+        <li><strong>_ga_&lt;ID&gt;</strong>: mantiene el estado de la sesión. Dura hasta 2 años.</li>
+      </ul>
+      <p>
+        Además, el sitio guarda en tu navegador (almacenamiento local, no
+        cookies) tu preferencia de tema claro u oscuro y tu decisión sobre las
+        cookies, para no volver a preguntarte.
+      </p>
+
+      <h2>Base legal y transferencia</h2>
+      <p>
+        Los datos se tratan con tu consentimiento, conforme a la Ley 1581 de
+        2012 de Colombia y, para visitantes de la Unión Europea, el Reglamento
+        General de Protección de Datos (RGPD). Google puede procesar los datos
+        en servidores fuera de Colombia, incluidos los de Estados Unidos.
+        Google Analytics conserva los datos según su configuración de
+        retención (como máximo 14 meses).
+      </p>
+
+      <h2>Tus derechos</h2>
+      <p>
+        Puedes conocer, actualizar, rectificar o pedir que se eliminen tus
+        datos, y retirar tu consentimiento cuando quieras, escribiendo al
+        correo de arriba. Para cambiar tu decisión sobre las cookies en este
+        navegador:
+      </p>
+      <p>
+        <button type="button" class="btn btn-secondary" data-cookie-settings>Configurar cookies</button>
+      </p>
+
+      <h2>Cambios</h2>
+      <p>
+        Si esta política cambia, la versión actualizada se publicará en esta
+        misma página con su nueva fecha.
+      </p>
+    </article>
+  `;
+}
+
+function showPrivacy() {
+  detailView.innerHTML = renderPrivacy();
+  homeView.classList.add("hidden");
+  projectsView.classList.add("hidden");
+  detailView.classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
 function showHome(anchorId) {
   detailView.classList.add("hidden");
   detailView.innerHTML = "";
@@ -3578,6 +3664,8 @@ function route() {
     renderDetail(decodeURIComponent(match[1]));
   } else if (hash === "#/sobre-mi") {
     showProfile();
+  } else if (hash === "#/privacidad") {
+    showPrivacy();
   } else if (hash.startsWith("#/proyectos")) {
     // #/proyectos?q=… llega con la búsqueda ya aplicada (enlaces del perfil)
     const q = new URLSearchParams(hash.split("?")[1] || "").get("q");
@@ -3588,6 +3676,8 @@ function route() {
   } else {
     showHome();
   }
+  // Toda pantalla que pase por aquí queda medida en GA4 (ver analytics.js)
+  trackRoute(hash);
 }
 
 // Saludo del hero: rota cada 3 s entre idiomas, en loop infinito.
@@ -3634,6 +3724,7 @@ function initGreeting() {
 
 window.addEventListener("hashchange", route);
 window.addEventListener("DOMContentLoaded", () => {
+  initCookieConsent();
   initGreeting();
   document.getElementById("year").textContent = new Date().getFullYear();
   initTheme();
